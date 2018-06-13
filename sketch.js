@@ -22,19 +22,19 @@ function setup() {
   database = firebase.database();
 
 
-  createCanvas(100, 100);
+  createCanvas(100, 100).parent('#root');
   pickColor();
 
   let buttons = [];
-  buttons.push(createButton('red-ish'));
-  buttons.push(createButton('green-ish'));
-  buttons.push(createButton('blue-ish'));
-  buttons.push(createButton('orange-ish'));
-  buttons.push(createButton('yellow-ish'));
-  buttons.push(createButton('pink-ish'));
-  buttons.push(createButton('purple-ish'));
-  buttons.push(createButton('brown-ish'));
-  buttons.push(createButton('grey-ish'));
+  buttons.push(createButton('red-ish').parent('#root').class('red-ish'));
+  buttons.push(createButton('green-ish').parent('#root').class('green-ish'));
+  buttons.push(createButton('blue-ish').parent('#root').class('blue-ish'));
+  buttons.push(createButton('orange-ish').parent('#root').class('orange-ish'));
+  buttons.push(createButton('yellow-ish').parent('#root').class('yellow-ish'));
+  buttons.push(createButton('pink-ish').parent('#root').class('pink-ish'));
+  buttons.push(createButton('purple-ish').parent('#root').class('purple-ish'));
+  buttons.push(createButton('brown-ish').parent('#root').class('brown-ish'));
+  buttons.push(createButton('grey-ish').parent('#root').class('grey-ish'));
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].mousePressed(sendData);
