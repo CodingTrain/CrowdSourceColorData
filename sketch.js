@@ -1,11 +1,13 @@
 let r, g, b;
 let database;
+let rgbDiv;
 
 function pickColor() {
   r = floor(random(256));
   g = floor(random(256));
   b = floor(random(256));
   background(r, g, b);
+  rgbDiv.html(`R:${r} G:${g} B:${b}`);
 }
 
 function setup() {
@@ -23,6 +25,8 @@ function setup() {
 
 
   createCanvas(100, 100).parent('#root');
+  rgbDiv = createDiv();
+  
   pickColor();
 
   let buttons = [];
