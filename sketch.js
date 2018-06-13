@@ -8,6 +8,7 @@ function pickColor() {
   b = floor(random(256));
   background(r, g, b);
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
+  document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.3)`;
 }
 
 function setup() {
@@ -24,7 +25,7 @@ function setup() {
   database = firebase.database();
 
 
-  createCanvas(100, 100).parent('#root');
+  createCanvas(200, 200).parent('#root');
   rgbDiv = createDiv().parent('#root');
   
   pickColor();
