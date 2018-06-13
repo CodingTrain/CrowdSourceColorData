@@ -6,6 +6,7 @@ function pickColor() {
   g = floor(random(256));
   b = floor(random(256));
   background(r, g, b);
+  document.body.style.cssText = `background-color: rgba(${r}, ${g}, ${b}, 0.3);`;
 }
 
 function setup() {
@@ -22,8 +23,10 @@ function setup() {
   database = firebase.database();
 
 
-  createCanvas(100, 100);
+  createCanvas(200, 200);
   pickColor();
+
+ 
 
   let buttons = [];
   buttons.push(createButton('red-ish'));
@@ -36,8 +39,11 @@ function setup() {
   buttons.push(createButton('brown-ish'));
   buttons.push(createButton('grey-ish'));
 
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].mousePressed(sendData);
+  BUTTON = buttons[0];
+
+  for (button of buttons) {
+    button.mousePressed(sendData);
+    button.style("background-color", button.html().split('-')[0]);
   }
 }
 
