@@ -5,11 +5,58 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<style>
+    #root{
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    canvas{
+      display: block;
+      margin: 1em auto;
+      box-shadow: 0 0 2em rgba(0,0,0,0.2);
+    }
+    button{
+      display: inline-block;
+      vertical-align: middle;
+      border: 0;
+      padding: .3em .5em;
+      padding-left: 0;
+      font-size: 1em;
+      line-height: 1.5em;
+      margin: 1em .3em;
+      cursor: pointer;
+      border-radius: 1em;
+      background-color: #efefef;
+    }
+    button:before{
+      content: '';
+      float: left;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 1.5em;
+      margin-right: .3em;
+      margin-left: .3em;
+    }
+    .blue-ish:before{background-color: blue;}
+    .red-ish:before{background-color: red;}
+    .green-ish:before{background-color: green;}
+    .blue-ish:before{background-color: blue;}
+    .orange-ish:before{background-color: orange;}
+    .yellow-ish:before{background-color: yellow;}
+    .pink-ish:before{background-color: pink;}
+    .purple-ish:before{background-color: purple;}
+    .brown-ish:before{background-color: brown;}
+    .grey-ish:before{background-color: grey;}
+	</style>
+
 	<title>crowdsourcecolor</title>
 	<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
 	<script src="sketch.js"></script>
+
+	<div id="root"></div>
 
 </head>
 <body>
