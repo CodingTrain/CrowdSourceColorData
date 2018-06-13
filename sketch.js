@@ -39,8 +39,6 @@ function setup() {
   buttons.push(createButton('brown-ish'));
   buttons.push(createButton('grey-ish'));
 
-  BUTTON = buttons[0];
-
   for (button of buttons) {
     button.mousePressed(sendData);
     button.style("background-color", button.html().split('-')[0]);
