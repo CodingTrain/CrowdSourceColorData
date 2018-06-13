@@ -8,7 +8,7 @@ function pickColor() {
   b = floor(random(256));
   background(r, g, b);
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
-  document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.3)`;
+  document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
 }
 
 function setup() {
