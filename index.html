@@ -10,6 +10,7 @@
       max-width: 600px;
       margin: 0 auto;
       text-align: center;
+      font-family: system-ui;
     }
     canvas{
       display: block;
@@ -48,6 +49,11 @@
     .purple-ish:before{background-color: purple;}
     .brown-ish:before{background-color: brown;}
     .grey-ish:before{background-color: grey;}
+    .loading {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
 	</style>
 
 	<title>crowdsourcecolor</title>
@@ -56,7 +62,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
 	<script src="sketch.js"></script>
 
-	<div id="root"></div>
+  <div id="root"></div>
+  <div class="loading" style="display:none;">
+    <img src="loading.svg" alt="Loading...">
+  </div>
 
 </head>
 <body>
