@@ -25,7 +25,7 @@ function setup() {
 
 
   createCanvas(100, 100).parent('#root');
-  rgbDiv = createDiv();
+  rgbDiv = createDiv().parent('#root');
   
   pickColor();
 
