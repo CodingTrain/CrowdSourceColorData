@@ -30,51 +30,15 @@ function setup() {
 
   pickColor();
 
-  buttons.push(
-    createButton("red-ish")
-      .parent("#root")
-      .class("red-ish")
-  );
-  buttons.push(
-    createButton("green-ish")
-      .parent("#root")
-      .class("green-ish")
-  );
-  buttons.push(
-    createButton("blue-ish")
-      .parent("#root")
-      .class("blue-ish")
-  );
-  buttons.push(
-    createButton("orange-ish")
-      .parent("#root")
-      .class("orange-ish")
-  );
-  buttons.push(
-    createButton("yellow-ish")
-      .parent("#root")
-      .class("yellow-ish")
-  );
-  buttons.push(
-    createButton("pink-ish")
-      .parent("#root")
-      .class("pink-ish")
-  );
-  buttons.push(
-    createButton("purple-ish")
-      .parent("#root")
-      .class("purple-ish")
-  );
-  buttons.push(
-    createButton("brown-ish")
-      .parent("#root")
-      .class("brown-ish")
-  );
-  buttons.push(
-    createButton("grey-ish")
-      .parent("#root")
-      .class("grey-ish")
-  );
+  buttons.push(createButton("red-ish").parent("#root").class("red-ish"));
+  buttons.push(createButton("green-ish").parent("#root").class("green-ish"));
+  buttons.push(createButton("blue-ish").parent("#root").class("blue-ish"));
+  buttons.push(createButton("orange-ish").parent("#root").class("orange-ish"));
+  buttons.push(createButton("yellow-ish").parent("#root").class("yellow-ish"));
+  buttons.push(createButton("pink-ish").parent("#root").class("pink-ish"));
+  buttons.push(createButton("purple-ish").parent("#root").class("purple-ish"));
+  buttons.push(createButton("brown-ish").parent("#root").class("brown-ish"));
+  buttons.push(createButton("grey-ish").parent("#root").class("grey-ish"));
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].mousePressed(sendData);
@@ -88,9 +52,7 @@ function setup() {
     console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
     console.log("To clean the data by label and hue use: ");
     console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
-    console.log(
-      "For any help, please see the documentation above each function in the code!"
-    );
+    console.log("For any help, please see the documentation above each function in the code!");
   });
 }
 
@@ -202,13 +164,7 @@ function analyzeData(data, colors) {
 }
 
 function filterData(data, name) {
-  return data.filter(
-    ({ label, r, g, b }) =>
-      label === name &&
-      Number.isInteger(r) &&
-      Number.isInteger(g) &&
-      Number.isInteger(b)
-  );
+  return data.filter(({ label, r, g, b }) => label === name && Number.isInteger(r) && Number.isInteger(g) && Number.isInteger(b));
 }
 
 function loadData() {
