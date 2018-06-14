@@ -35,7 +35,7 @@ function setup() {
   rgbDiv = createDiv().parent("#root");
 
   createCanvas(200, 200).parent('#root');
-  rgbDiv = createDiv().parent('#root');
+  rgbDiv = createDiv().parent('#root').class('rgb_label');
   bodyElement = document.body;
 
   pickColor();
