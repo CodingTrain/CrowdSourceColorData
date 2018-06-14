@@ -45,16 +45,17 @@ function setup() {
     buttons[i].mousePressed(sendData);
   }
 
-  console.log("Retreiving data... (this can take a minute or two)");
-  loadData().then(data => {
-    dataSave = data;
-    console.log("Recieved data. To analyze", data.length, "entries, run: ");
-    console.log("showSample(dataSave, 'red-ish')");
-    console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
-    console.log("To clean the data by label and hue use: ");
-    console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
-    console.log("For any help, please see the documentation above each function in the code!");
-  });
+  // Commenting out the loading of data for the webpage running
+  // console.log("Retreiving data... (this can take a minute or two)");
+  // loadData().then(data => {
+  //   dataSave = data;
+  //   console.log("Recieved data. To analyze", data.length, "entries, run: ");
+  //   console.log("showSample(dataSave, 'red-ish')");
+  //   console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
+  //   console.log("To clean the data by label and hue use: ");
+  //   console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
+  //   console.log("For any help, please see the documentation above each function in the code!");
+  // });
 }
 
 function sendData() {
