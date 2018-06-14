@@ -35,7 +35,7 @@ function setup() {
   rgbDiv = createDiv().parent("#root");
 
   createCanvas(200, 200).parent('#root');
-  rgbDiv = createDiv().parent('#root');
+  rgbDiv = createDiv().parent('#root').style('text-shadow', '0 0 2px #ffffff');
   bodyElement = document.body;
 
   pickColor();
