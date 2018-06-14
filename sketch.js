@@ -90,6 +90,8 @@ function sendData() {
  *   First, all data whose label does not match 'name' is discarded.
  *   Then, all data must encode a RGB color which has a hue
  *   value greater than minHue and less than maxHue.
+ *   Special case!
+ *   If minHue > maxHue, the range wraps around the 360->0 hue gap.
  * @function cleanData
  * @param {Array} data - returned by loadData(), saved in dataSave
  * @param {string} name - the label to produce clean data for
@@ -106,7 +108,9 @@ function cleanData(data, name, minHue, maxHue) {
   for (let entry of entries) {
     let { r, g, b } = entry;
     let h = hue(color(r, g, b));
-    if (h > minHue && h < maxHue) {
+    if (minHue < h && h < maxHue) {
+      result.push(entry);
+    } else if (minHue > maxHue && (minHue < h || h < maxHue)) {
       result.push(entry);
     }
   }
