@@ -1,6 +1,8 @@
 let r, g, b;
 let database;
 let rgbDiv;
+let bodyElement;
+
 
 function pickColor() {
   r = floor(random(256));
@@ -8,8 +10,7 @@ function pickColor() {
   b = floor(random(256));
   background(r, g, b);
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
-  document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
-  hideLoading();
+  updateBodyBG();
 }
 
 function setup() {
@@ -28,7 +29,8 @@ function setup() {
 
   createCanvas(200, 200).parent('#root');
   rgbDiv = createDiv().parent('#root');
-  
+  bodyElement = document.body;
+
   pickColor();
 
   let buttons = [];
@@ -66,6 +68,9 @@ function sendData() {
   let color = colorDatabase.push(data, finished);
   console.log("Firebase generated key: " + color.key);
 
+  //Pick new color
+  pickColor();  
+
   // Reload the data for the page
   function finished(err) {
     if (err) {
@@ -73,7 +78,7 @@ function sendData() {
       console.error(err);
     } else {
       console.log('Data saved successfully');
-      setTimeout(pickColor, 700);
+      setTimeout(hideLoading, 600);
     }
   }
 }
@@ -86,4 +91,9 @@ function showLoading() {
 function hideLoading() {
   select('.loading').hide();
   select('#root').show();
+}
+
+
+function updateBodyBG(){
+  bodyElement.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
 }
