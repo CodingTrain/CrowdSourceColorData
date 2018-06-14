@@ -10,6 +10,7 @@ function pickColor() {
   b = floor(random(256));
   background(r, g, b);
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
+  hideLoading();
 }
 
 function setup() {
@@ -57,6 +58,7 @@ function setup() {
 }
 
 function sendData() {
+  showLoading();
   // send this data to something?
   // send the data to firebase!
   let colorDatabase = database.ref("colors");
@@ -81,10 +83,11 @@ function sendData() {
       console.error(err);
     } else {
       console.log("Data saved successfully");
-      pickColor();
+      setTimeout(pickColor, 700);
     }
   }
 }
+
 
 /** Produce a filtered version of the input data.
  *   First, all data whose label does not match 'name' is discarded.
@@ -176,4 +179,14 @@ function loadData() {
     .ref("/colors/")
     .once("value")
     .then(snapshot => Object.values(snapshot.val()));
+}
+
+function showLoading() {
+  select('.loading').style('display', '');
+  select('#root').hide();
+}
+
+function hideLoading() {
+  select('.loading').hide();
+  select('#root').show();
 }
