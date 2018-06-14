@@ -3,6 +3,10 @@ let authPromise;
 let database;
 let rgbDiv;
 
+let length_div;
+let length = 0;
+let length_div_made = false;
+
 let bodyElement;
 let buttons = [];
 let ready = false;
@@ -31,6 +35,8 @@ function setup() {
   database = firebase.database();
   authPromise = firebase.auth().signInAnonymously();
 
+  
+
   createCanvas(100, 100).parent("#root");
   rgbDiv = createDiv().parent("#root");
 
@@ -56,6 +62,17 @@ function setup() {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].mousePressed(sendData);
   }
+  // code to determine and display database length
+  database
+  .ref("/colors/")
+  .once("value")
+  .then(function data_length(snapshot) {
+      length += Object.values(snapshot.val()).length;
+      console.log(length);
+      length_div = createDiv().parent('#root').class('rgb_label');
+      length_div.html(`${length} data entries so far`);
+      length_div_made = true
+  });
 
   // Commenting out the loading of data for the webpage running
   // console.log("Retreiving data... (this can take a minute or two)");
@@ -93,7 +110,11 @@ async function sendData() {
   console.log("Firebase generated key: " + color.key);
 
   //Pick new color
-  pickColor();  
+  pickColor();
+  length += 1;
+  if (length_div_made){
+      length_div.html(`${length} data entries so far`);
+  }
 
   // Reload the data for the page
   function finished(err) {
