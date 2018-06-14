@@ -1,4 +1,5 @@
 let r, g, b;
+let authPromise;
 let database;
 let rgbDiv;
 let buttons = [];
@@ -25,6 +26,7 @@ function setup() {
   };
   firebase.initializeApp(config);
   database = firebase.database();
+  authPromise = firebase.auth().signInAnonymously();
 
   createCanvas(100, 100).parent("#root");
   rgbDiv = createDiv().parent("#root");
@@ -58,14 +60,16 @@ function setup() {
   // });
 }
 
-function sendData() {
+async function sendData() {
   showLoading();
   // send this data to something?
   // send the data to firebase!
+  let { user } = await authPromise;
   let colorDatabase = database.ref("colors");
 
   // Make an object with data in it
   var data = {
+    uid: user.uid,
     r: r,
     g: g,
     b: b,
