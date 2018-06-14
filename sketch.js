@@ -9,6 +9,7 @@ function pickColor() {
   background(r, g, b);
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
   document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
+  hideLoading();
 }
 
 function setup() {
@@ -47,6 +48,7 @@ function setup() {
 }
 
 function sendData() {
+  showLoading();
   // send this data to something?
   // send the data to firebase!
   let colorDatabase = database.ref('colors');
@@ -71,7 +73,17 @@ function sendData() {
       console.error(err);
     } else {
       console.log('Data saved successfully');
-      pickColor();
+      setTimeout(pickColor, 700);
     }
   }
+}
+
+function showLoading() {
+  select('.loading').style('display', '');
+  select('#root').hide();
+}
+
+function hideLoading() {
+  select('.loading').hide();
+  select('#root').show();
 }
