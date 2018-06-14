@@ -47,7 +47,6 @@ function pickColor() {
   fill(r, g, b);
   rect(width * 0.25, height / 2, width / 2 * 0.7, height * 0.7);
   rect(width * 0.75, height / 2, width / 2 * 0.7, height * 0.7);
-  hideLoading();
   updateBodyBG();
 }
 
