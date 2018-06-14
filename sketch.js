@@ -54,7 +54,7 @@ function setup() {
 
 
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].mousePressed(sendData);
+    buttons[i].mouseClicked(sendData);
   }
 
   // Commenting out the loading of data for the webpage running
