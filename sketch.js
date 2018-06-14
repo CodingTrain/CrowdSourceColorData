@@ -2,14 +2,14 @@ let r, g, b;
 let database;
 let rgbDiv;
 let bodyElement;
-
+let buttons = [];
+let ready = false;
 
 function pickColor() {
   r = floor(random(256));
   g = floor(random(256));
   b = floor(random(256));
   background(r, g, b);
-  rgbDiv.html(`R:${r} G:${g} B:${b}`);
   updateBodyBG();
 }
 
@@ -32,8 +32,9 @@ function setup() {
   bodyElement = document.body;
 
   pickColor();
-
-  let buttons = [];
+  ready = true;
+  rgbDiv.html(`R:${r} G:${g} B:${b}`);
+  
   buttons.push(createButton('red-ish').parent('#root').class('red-ish'));
   buttons.push(createButton('green-ish').parent('#root').class('green-ish'));
   buttons.push(createButton('blue-ish').parent('#root').class('blue-ish'));
@@ -50,6 +51,9 @@ function setup() {
 }
 
 function sendData() {
+
+  if(!ready) return;
+
   showLoading();
   // send this data to something?
   // send the data to firebase!
@@ -84,13 +88,18 @@ function sendData() {
 }
 
 function showLoading() {
-  select('.loading').style('display', '');
-  select('#root').hide();
+  select('.loading').show();
+  select('canvas').hide();
+  for (button of buttons) button.addClass("disabled");
+  ready = false;
 }
 
 function hideLoading() {
   select('.loading').hide();
-  select('#root').show();
+  select('canvas').show();
+  rgbDiv.html(`R:${r} G:${g} B:${b}`);
+  for (button of buttons) button.removeClass("disabled");
+  setTimeout(function(){ ready = true;}, 600);
 }
 
 

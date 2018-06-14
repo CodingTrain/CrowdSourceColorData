@@ -11,6 +11,7 @@
       margin: 0 auto;
       text-align: center;
       font-family: system-ui;
+      transition: visibility 2s, opacity 0.5s linear;
     }
     canvas{
       display: block;
@@ -30,6 +31,7 @@
       cursor: pointer;
       border-radius: 1em;
       background-color: #efefef;
+      transition: 1s ease;
     }
     button:before{
       content: '';
@@ -40,6 +42,11 @@
       margin-right: .3em;
       margin-left: .3em;
     }
+
+    button:focus{
+      outline: 0;
+    }
+
     .blue-ish:before{background-color: blue;}
     .red-ish:before{background-color: red;}
     .green-ish:before{background-color: green;}
@@ -53,7 +60,7 @@
     body{
       background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%);
       user-select: none;
-      transition: background-color 2s ease;
+      transition: background-color 1s ease-out;
     }
 
     html{
@@ -61,10 +68,20 @@
     }
 
     .loading {
-      width: 100%;
+      width: 200px;
+      height: 200px;
       display: flex;
       justify-content: center;
+      margin: 1em auto;
     }
+
+
+    .disabled{
+      pointer-events: none;
+      opacity: 0;
+      transition: 1s ease;
+    }
+
 	</style>
 
 	<title>crowdsourcecolor</title>
@@ -73,10 +90,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
 	<script src="sketch.js"></script>
 
-  <div id="root"></div>
-  <div class="loading" style="display:none;">
-    <img src="loading.svg" alt="Loading...">
+  <div id="root">
+    <div class="loading" style="display:none;">
+      <img src="loading.svg" alt="Loading...">
+    </div>
   </div>
+  
 
 </head>
 <body>
