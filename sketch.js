@@ -36,7 +36,7 @@ function setup() {
 
   createCanvas(200, 200).parent('#root');
   rgbDiv = createDiv().parent('#root');
-  bodyElement = document.body;
+  bodyElement = select("body");
 
   pickColor();
   ready = true;
@@ -203,7 +203,8 @@ function loadData() {
 function showLoading() {
   select('.loading').show();
   select('canvas').hide();
-  for (button of buttons) button.addClass("disabled");
+  for (let button of buttons) 
+    button.addClass("disabled");
   ready = false;
 }
 
@@ -211,11 +212,14 @@ function hideLoading() {
   select('.loading').hide();
   select('canvas').show();
   rgbDiv.html(`R:${r} G:${g} B:${b}`);
-  for (button of buttons) button.removeClass("disabled");
+  for (let button of buttons) {
+    button.removeClass("disabled");
+    button.elt.blur()
+  }
   setTimeout(function(){ ready = true;}, 600);
 }
 
 
 function updateBodyBG(){
-  bodyElement.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
+  bodyElement.style("background-color", `rgba(${r}, ${g}, ${b}, 1.0)`);
 }
