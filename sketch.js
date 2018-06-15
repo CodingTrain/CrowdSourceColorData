@@ -60,7 +60,7 @@ function setup() {
 
 
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].mousePressed(sendData);
+    buttons[i].mouseClicked(sendData);
   }
   // code to determine and display database length
   database
