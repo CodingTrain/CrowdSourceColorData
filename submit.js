@@ -41,7 +41,7 @@ function setup() {
   rgbDiv = createDiv().parent("#root");
 
   createCanvas(200, 200).parent('#root');
-  rgbDiv = createDiv().parent('#root').class('rgb_label');
+  rgbDiv = createDiv().parent('#root').class('text_label');
   bodyElement = document.body;
 
   pickColor();
@@ -69,7 +69,7 @@ function setup() {
   .then(function data_length(snapshot) {
       length += Object.values(snapshot.val()).length;
       console.log(length);
-      length_div = createDiv().parent('#root').class('rgb_label');
+      length_div = createDiv().parent('#root').class('text_label');
       length_div.html(`${length} data entries so far`);
       length_div_made = true
   });
