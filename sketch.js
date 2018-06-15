@@ -31,17 +31,15 @@ function setup() {
   database = firebase.database();
   authPromise = firebase.auth().signInAnonymously();
 
-  createCanvas(100, 100).parent("#root");
+  createCanvas(200, 200).parent("#root");
   rgbDiv = createDiv().parent("#root");
 
-  createCanvas(200, 200).parent('#root');
-  rgbDiv = createDiv().parent('#root');
   bodyElement = select("body");
 
   pickColor();
   ready = true;
-  rgbDiv.html(`R:${r} G:${g} B:${b}`);
-  
+  updateRGBDiv();
+
   buttons.push(createButton('red-ish').parent('#root').class('red-ish'));
   buttons.push(createButton('green-ish').parent('#root').class('green-ish'));
   buttons.push(createButton('blue-ish').parent('#root').class('blue-ish'));
@@ -211,7 +209,8 @@ function showLoading() {
 function hideLoading() {
   select('.loading').hide();
   select('canvas').show();
-  rgbDiv.html(`R:${r} G:${g} B:${b}`);
+  updateRGBDiv();
+
   for (let button of buttons) {
     button.removeClass("disabled");
     button.elt.blur()
@@ -219,7 +218,10 @@ function hideLoading() {
   setTimeout(function(){ ready = true;}, 600);
 }
 
-
 function updateBodyBG(){
   bodyElement.style("background-color", `rgba(${r}, ${g}, ${b}, 1.0)`);
+}
+
+function updateRGBDiv(){
+  rgbDiv.html(`R:${r} G:${g} B:${b}`);
 }
