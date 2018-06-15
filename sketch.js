@@ -215,7 +215,7 @@ function hideLoading() {
     button.removeClass("disabled");
     button.elt.blur()
   }
-  setTimeout(function(){ ready = true;}, 600);
+  setTimeout(function(){ ready = true;}, 400);
 }
 
 function updateBodyBG(){
