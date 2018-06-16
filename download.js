@@ -2,6 +2,7 @@ let authPromise;
 let database;
 let text_div;
 let data;
+let canvas;
 
 let bodyElement;
 let buttons = [];
@@ -26,8 +27,8 @@ function setup() {
 
   
 
-    createCanvas(100, 100).parent("#root");
-    select('canvas').hide();
+    canvas = createCanvas(100, 100).parent("#root");
+    canvas.hide();
     text_div = createDiv().parent('#root').class('text_label');
     bodyElement = document.body;
     text_div.html(`Please wait while the data is fetched`);
@@ -42,19 +43,14 @@ function setup() {
         hideLoading();
         let download_button = createButton('Download as JSON').parent('#root').class('text_label');
         download_button.mouseClicked(download_data);
+        console.log("Recieved data. To analyze", data.length, "entries, run: ");
+        console.log("showSample(data, 'red-ish')");
+        console.log("or analyzeData(data, ['red-ish', 'blue-ish'])");
+        console.log("To clean the data by label and hue use: ");
+        console.log("let green_data = cleanData(data, 'green-ish', 60, 180)");
+        console.log("For any help, please see the documentation above each function in the code!");
+        console.log("When you are happy use the button to download the data as a JSON file");
     });
-
-    // Commenting out the loading of data for the webpage running
-    // console.log("Retreiving data... (this can take a minute or two)");
-    // loadData().then(data => {
-    //   dataSave = data;
-    //   console.log("Recieved data. To analyze", data.length, "entries, run: ");
-    //   console.log("showSample(dataSave, 'red-ish')");
-    //   console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
-    //   console.log("To clean the data by label and hue use: ");
-    //   console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
-    //   console.log("For any help, please see the documentation above each function in the code!");
-    // });
 }
 
 function download_data(){
@@ -107,6 +103,7 @@ function cleanData(data, name, minHue, maxHue) {
  * @example showSample(dataSave, 'green-ish')
  */
 function showSample(data, name) {
+    canvas.show()
     const entries = filterData(data, name);
     console.log("Found", entries.length, "entries for", name);
 
