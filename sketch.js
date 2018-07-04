@@ -51,6 +51,7 @@ function setup() {
   buttons.push(createButton('purple-ish').parent('#root').class('purple-ish'));
   buttons.push(createButton('brown-ish').parent('#root').class('brown-ish'));
   buttons.push(createButton('grey-ish').parent('#root').class('grey-ish'));
+  buttons.push(createButton('skip').parent('#root').class('skip'));
 
 
   for (let i = 0; i < buttons.length; i++) {
@@ -71,7 +72,11 @@ function setup() {
 }
 
 async function sendData() {
-   if(!ready) return;
+  if(this.html()=='skip'){
+    console.log('Color was skipped');
+    pickColor();
+  }
+  if(!ready) return;
   showLoading();
   // send this data to something?
   // send the data to firebase!
