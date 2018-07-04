@@ -75,6 +75,7 @@ async function sendData() {
   if(this.html()=='skip'){
     console.log('Color was skipped');
     pickColor();
+    return;
   }
   if(!ready) return;
   showLoading();
