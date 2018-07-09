@@ -51,7 +51,7 @@ function setup() {
   buttons.push(createButton('purple-ish').parent('#root').class('purple-ish'));
   buttons.push(createButton('brown-ish').parent('#root').class('brown-ish'));
   buttons.push(createButton('grey-ish').parent('#root').class('grey-ish'));
-
+  buttons.push(createButton('black-ish').parent('#root').class('black-ish'));
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].mouseClicked(sendData);
