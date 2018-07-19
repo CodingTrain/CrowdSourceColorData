@@ -7,14 +7,7 @@ let bodyElement;
 let buttons = [];
 let ready = false;
 let dataSave;
-
-function pickColor() {
-  r = floor(random(256));
-  g = floor(random(256));
-  b = floor(random(256));
-  background(r, g, b);
-  updateBodyBG();
-}
+let limit = 200;
 
 function setup() {
   // Initialize Firebase
@@ -28,15 +21,13 @@ function setup() {
   };
   firebase.initializeApp(config);
   database = firebase.database();
+
   authPromise = firebase.auth().signInAnonymously();
 
   createCanvas(200, 200).parent('#root');
   rgbDiv = createDiv().parent('#root');
   bodyElement = document.body;
-
-  pickColor();
   ready = true;
-  rgbDiv.html(`R:${r} G:${g} B:${b}`);
 
   buttons.push(createButton('red-ish').parent('#root').class('red-ish'));
   buttons.push(createButton('green-ish').parent('#root').class('green-ish'));
@@ -50,59 +41,25 @@ function setup() {
 
 
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].mouseClicked(sendData);
+    buttons[i].mouseClicked(showSampleData);
   }
 
-  // Commenting out the loading of data for the webpage running
-  // console.log("Retreiving data... (this can take a minute or two)");
-  // loadData().then(data => {
-  //   dataSave = data;
-  //   console.log("Recieved data. To analyze", data.length, "entries, run: ");
-  //   console.log("showSample(dataSave, 'red-ish')");
-  //   console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
-  //   console.log("To clean the data by label and hue use: ");
-  //   console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
-  //   console.log("For any help, please see the documentation above each function in the code!");
-  // });
-}
-
-async function sendData() {
-   if(!ready) return;
+  //Commenting out the loading of data for the webpage running
+  console.log("Retreiving data... (this can take a minute or two)");
   showLoading();
-  // send this data to something?
-  // send the data to firebase!
-  let { user } = await authPromise;
-  let colorDatabase = database.ref("colors");
-
-  // Make an object with data in it
-  var data = {
-    uid: user.uid,
-    r: r,
-    g: g,
-    b: b,
-    label: this.html()
-  };
-  console.log("saving data");
-  console.log(data);
-
-  let color = colorDatabase.push(data, finished);
-  console.log("Firebase generated key: " + color.key);
-
-  //Pick new color
-  pickColor();
-
-  // Reload the data for the page
-  function finished(err) {
-    if (err) {
-      console.error("ooops, something went wrong.");
-      console.error(err);
-    } else {
-      console.log('Data saved successfully');
-      setTimeout(hideLoading, 600);
-    }
-  }
+  loadData().then(data => {
+    hideLoading();
+    dataSave = data;
+    console.log("Recieved data. To analyze", data.length, "entries, run: ");
+    //console.log("showSample(dataSave, 'red-ish')");
+    showSample(dataSave, 'red-ish');
+    rgbDiv.html('red-ish');
+    console.log("or analyzeData(dataSave, ['red-ish', 'blue-ish'])");
+    console.log("To clean the data by label and hue use: ");
+    console.log("let green_data = cleanData(dataSave, 'green-ish', 60, 180)");
+    console.log("For any help, please see the documentation above each function in the code!");
+  });
 }
-
 
 /** Produce a filtered version of the input data.
  *   First, all data whose label does not match 'name' is discarded.
@@ -136,6 +93,11 @@ function cleanData(data, name, minHue, maxHue) {
   return result;
 }
 
+function showSampleData() {
+  rgbDiv.html(this.html());
+  showSample(dataSave, this.html());
+}
+
 /** Actually draw on the canvas as many colors from that
  *   label as possible, with one pixel for each color.
  * @function showSample
@@ -148,17 +110,25 @@ function showSample(data, name) {
   const entries = filterData(data, name);
   console.log("Found", entries.length, "entries for", name);
 
-  let img = createImage(width, height);
-  let d = pixelDensity();
-  img.loadPixels();
-  for (let i = 0; i < width * height * d && i < entries.length; i++) {
-    let { r, g, b } = entries[i];
-    img.set(i % width, floor(i / height), color(r, g, b));
+  let randomIndex = floor(random(entries.length));
+  if(entries[randomIndex]) {
+    r = entries[randomIndex].r;
+    g = entries[randomIndex].g;
+    b = entries[randomIndex].b;
+    updateBodyBG();
   }
-  img.updatePixels();
+
+  let square = ceil(sqrt(entries.length));
+  let w = width / square;
+  let h = height / square;
 
   background(255);
-  image(img, 0, 0);
+  noStroke();
+  for (let i = 0; i < square * square && i < entries.length; i++) {
+    let { r, g, b } = entries[i];
+    fill(color(r, g, b));
+    rect((i % square) * w, floor(i / square) * h, w, h);
+  }
 }
 
 /** Show hue metrics for colors of the data.
@@ -192,6 +162,7 @@ function filterData(data, name) {
 function loadData() {
   return database
     .ref("/colors/")
+    .limitToFirst(limit)
     .once("value")
     .then(snapshot => Object.values(snapshot.val()));
 }
@@ -206,11 +177,9 @@ function showLoading() {
 function hideLoading() {
   select('.loading').hide();
   select('canvas').show();
-  rgbDiv.html(`R:${r} G:${g} B:${b}`);
   for (button of buttons) button.removeClass("disabled");
   setTimeout(function(){ ready = true;}, 600);
 }
-
 
 function updateBodyBG(){
   bodyElement.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1.0)`;
